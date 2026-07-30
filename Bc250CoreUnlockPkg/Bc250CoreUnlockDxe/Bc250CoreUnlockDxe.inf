@@ -1,0 +1,28 @@
+[Defines]
+  INF_VERSION                    = 0x0001001A
+  BASE_NAME                      = Bc250CoreUnlockDxe
+  FILE_GUID                      = 2f3d426d-6a54-4a6b-82d0-1207cc5b6d92
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 0.1
+  ENTRY_POINT                    = Bc250CoreUnlockEntryPoint
+
+[Sources]
+  Bc250CoreUnlockDxe.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  DebugLib
+  PciSegmentLib
+  TimerLib
+  UefiDriverEntryPoint
+  UefiLib
+
+[Protocols]
+  gEfiLoadedImageProtocolGuid
+
+[Depex]
+  TRUE

@@ -1,0 +1,5 @@
+[Defines]
+  DEC_SPECIFICATION              = 0x0001001A
+  PACKAGE_NAME                   = Bc250CoreUnlockPkg
+  PACKAGE_GUID                   = 8d6c8e4d-8eb5-4f0f-a2ac-5de16d6f2b44
+  PACKAGE_VERSION                = 0.1
