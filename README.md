@@ -2,7 +2,7 @@
 
 Credit to https://github.com/rw-r-r-0644 for creating an implementation of this unlock, which I used as a reference when making this driver
 
-## For the patch to apply to the Robin3.00/Modded P3.00 BIOS, please see the bottom of this readme
+## For the patch to apply to the BC250_3.00_CHIPSETMENU.ROM BIOS, please see the bottom of this readme
 
 # Why a DXE Driver?
 
