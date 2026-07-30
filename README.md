@@ -6,6 +6,8 @@ Credit to https://github.com/rw-r-r-0644 for creating an implementation of this 
 
 This is so it can run extremely early in the boot process and add a minimal amount of time to the boot of BC250s that are already known to have good cores. By placing this driver in the bios, it prevents drive failures, updates, or OS reinstalls from breaking the cpu core unlock.
 
+Like the other methods of core unlock, for some reason it causes the reported GPU clocks to be wrong. I have not noticed any negative impact on GPU performance however, so it appears to just be a visual/reporting issue?
+
 # BC250-DXE-SMU-Core-Unlock
 
 It is a standalone EDK II DXE driver for the AMD BC-250 that mirrors the SMU core-unlock
