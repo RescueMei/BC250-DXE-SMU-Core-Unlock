@@ -13,11 +13,10 @@
 // Operational flow:
 //   1. Read SMN 0x0115A870 through the host bridge SMN index/data window.
 //   2. If the low byte is 0xFF, the system is already unlocked -> exit.
-//   3. If the low byte is neither 0xFF or 0x77, then it is an unknown core mask and enabling all cores could be dangerous -> exit.
-//   4. If the low byte is 0x77, use SMU Queue 3 message 0x98 to force
-//      that SMN location to 0x00FF.
-//   5. Verify the mask changed to 0xFF.
-//   6. Issue a warm reset so the next boot enumerates all 8 cores.
+//   3. Otherwise, use SMU Queue 3 message 0x98 to force that SMN location
+//      to 0x00FF.
+//   4. Verify the mask changed to 0xFF.
+//   5. Issue a warm reset so the next boot enumerates all 8 cores.
 //
 //
 #define BC250_HOST_PCI_SEGMENT      0
@@ -29,9 +28,8 @@
 #define SMN_INDEX_OFFSET            0xB8
 #define SMN_DATA_OFFSET             0xBC
 
-// BC-250 core presence mask and the only values this driver treats as valid.
+// BC-250 core presence mask register and unlocked value.
 #define MASK_REG                    0x0115A870U
-#define EXPECTED_MASK               0x77U
 #define UNLOCKED_MASK               0xFFU
 
 // SMU Queue 3 command used by the Linux reference to force-write 0x00FF.
@@ -211,10 +209,7 @@ SendQueue3Message (
   The driver acts as a one-shot policy gate based on the current core mask:
 
   * 0xFF -> already unlocked, continue normal boot.
-  * 0x77 -> perform the SMU write, verify success, warm reset.
-  * any other value -> core mask is unknown, continue normal boot without SMU write and do not reset.
-
-  Failing at an unknown core mask is delibrate, as it could cause genuinely faulty cores to be enabled by forcing them all on.
+  * any other value -> perform the SMU write, verify success, warm reset.
 
   @param[in] ImageHandle   Standard UEFI image handle.
   @param[in] SystemTable   Standard UEFI system table pointer.
@@ -246,11 +241,6 @@ Bc250CoreUnlockEntryPoint (
     return EFI_SUCCESS;
   }
 
-  if (MaskLowByte != EXPECTED_MASK) {
-    DEBUG ((DEBUG_WARN, "Bc250CoreUnlockDxe: unexpected mask 0x%02x, skipping unlock\n", MaskLowByte));
-    return EFI_SUCCESS;
-  }
-
   MailboxStatus = 0;
   Status = SendQueue3Message (MSG_WRITE_FF, MASK_REG, &MailboxStatus);
   if (EFI_ERROR (Status)) {
@@ -263,7 +253,7 @@ Bc250CoreUnlockEntryPoint (
     return EFI_SUCCESS;
   }
 
-  MicroSecondDelay (200000U);
+  MicroSecondDelay (50000U);
 
   MaskValue = SmnRead32 (MASK_REG);
   MaskLowByte = (UINT8)(MaskValue & 0xFFU);

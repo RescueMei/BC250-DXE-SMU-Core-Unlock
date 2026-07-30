@@ -1,5 +1,5 @@
 [Defines]
-  PLATFORM_NAME                  = Bc250CoreUnlockPkg
+  PLATFORM_NAME                  = MeiMeiBc250CoreUnlockPkg
   PLATFORM_GUID                  = 4ee89e5d-20ba-485f-a75e-e8f2adbb2f20
   PLATFORM_VERSION               = 0.1
   DSC_SPECIFICATION              = 0x0001001A
