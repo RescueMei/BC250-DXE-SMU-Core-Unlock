@@ -104,14 +104,14 @@ On the default path, the script will:
 1. start the Fedora 41 Tianocore dev container
 2. clone or reuse an `edk2` checkout under `.cache/edk2`
 3. initialize submodules and build BaseTools
-4. build `Bc250CoreUnlockDxe.efi`
+4. build `MeiMeiDXEv2_BC250CoreUnlock.efi`
 5. wrap it into a DXE driver `.ffs` using `GenSec` and `GenFfs`
 
 Artifacts are emitted to:
 
 ```text
-Build/Output/Bc250CoreUnlockDxe.efi
-Build/Output/Bc250CoreUnlockDxe.ffs
+Build/Output/MeiMeiDXEv2_BC250CoreUnlock.efi
+Build/Output/MeiMeiDXEv2_BC250CoreUnlock.ffs
 ```
 
 Use the `.ffs` file for UEFITool insertion.
@@ -130,13 +130,13 @@ bash scripts/build_ffs.sh
 
 1. Open the AMI BC250 BIOS image in UEFITool.
 2. Locate a DXE firmware volume.
-3. Insert `Build/Output/Bc250CoreUnlockDxe.ffs` as a driver file in that DXE volume.
+3. Insert `Build/Output/MeiMeiDXEv2_BC250CoreUnlock.ffs` as a driver file in that DXE volume.
 4. Save the modified image and flash only if you have a verified recovery path.
 
 This driver is designed to be a normal DXE driver FFS file, with:
 
 - a PE32 section containing the compiled module
-- a UI section named `Bc250CoreUnlockDxe`
+- a UI section named `MeiMeiDXEv2_BC250CoreUnlock`
 - `EFI_FV_FILETYPE_DRIVER`
 
 ## CAUTION

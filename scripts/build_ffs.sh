@@ -16,7 +16,8 @@ PKG_DIR="$REPO_DIR/Bc250CoreUnlockPkg"
 PLATFORM_DSC="$PKG_DIR/Bc250CoreUnlockPkg.dsc"
 MODULE_INF="$PKG_DIR/Bc250CoreUnlockDxe/Bc250CoreUnlockDxe.inf"
 OUTPUT_DIR="$REPO_DIR/Build/Output"
-MODULE_NAME="MeiMeiBc250CoreUnlockDxe"
+BUILD_PACKAGE_DIR="MeiMeiDXEv2_BC250CoreUnlock"
+MODULE_NAME="MeiMeiDXEv2_BC250CoreUnlock"
 MODULE_GUID="2f3d426d-6a54-4a6b-82d0-1207cc5b6d92"
 
 ARCH="${ARCH:-X64}"
@@ -154,9 +155,9 @@ build_with_host_edk2() {
     -p "$PLATFORM_DSC" \
     -m "$MODULE_INF"
 
-  efi_path="$EDK2_DIR/Build/MeiMeiBc250CoreUnlockPkg/${TARGET}_${TOOL_CHAIN_TAG}/$ARCH/${MODULE_NAME}.efi"
+  efi_path="$EDK2_DIR/Build/${BUILD_PACKAGE_DIR}/${TARGET}_${TOOL_CHAIN_TAG}/$ARCH/${MODULE_NAME}.efi"
   if [[ ! -f "$efi_path" ]]; then
-    efi_path="$(find "$EDK2_DIR/Build/MeiMeiBc250CoreUnlockPkg" -type f -name "${MODULE_NAME}.efi" | head -n 1)"
+    efi_path="$(find "$EDK2_DIR/Build/${BUILD_PACKAGE_DIR}" -type f -name "${MODULE_NAME}.efi" | head -n 1)"
   fi
 
   if [[ -z "$efi_path" || ! -f "$efi_path" ]]; then
@@ -299,9 +300,9 @@ build_with_container() {
 
       echo "EDK II build finished, locating EFI artifact..."
 
-      EFI_PATH="$CONTAINER_EDK2_DIR/Build/MeiMeiBc250CoreUnlockPkg/${TARGET}_${TOOL_CHAIN_TAG}/${ARCH}/${MODULE_NAME}.efi"
+      EFI_PATH="$CONTAINER_EDK2_DIR/Build/${BUILD_PACKAGE_DIR}/${TARGET}_${TOOL_CHAIN_TAG}/${ARCH}/${MODULE_NAME}.efi"
       if [[ ! -f "$EFI_PATH" ]]; then
-        EFI_PATH="$(find "$CONTAINER_EDK2_DIR/Build/MeiMeiBc250CoreUnlockPkg" -type f -name "${MODULE_NAME}.efi" | head -n 1)"
+        EFI_PATH="$(find "$CONTAINER_EDK2_DIR/Build/${BUILD_PACKAGE_DIR}" -type f -name "${MODULE_NAME}.efi" | head -n 1)"
       fi
 
       if [[ -z "$EFI_PATH" || ! -f "$EFI_PATH" ]]; then

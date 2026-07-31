@@ -1,9 +1,9 @@
 [Defines]
-  PLATFORM_NAME                  = MeiMeiBc250CoreUnlockPkg
+  PLATFORM_NAME                  = MeiMeiDXEv2_BC250CoreUnlock
   PLATFORM_GUID                  = 4ee89e5d-20ba-485f-a75e-e8f2adbb2f20
   PLATFORM_VERSION               = 0.1
   DSC_SPECIFICATION              = 0x0001001A
-  OUTPUT_DIRECTORY               = Build/Bc250CoreUnlockPkg
+  OUTPUT_DIRECTORY               = Build/MeiMeiDXEv2_BC250CoreUnlock
   SUPPORTED_ARCHITECTURES        = X64
   BUILD_TARGETS                  = DEBUG|RELEASE
   SKUID_IDENTIFIER               = DEFAULT
