@@ -1,3 +1,7 @@
+# SUPERSEDED: See the V2 here
+
+https://github.com/RescueMei/BC250-DXEv2-BIOSMOD
+
 # CAUTION: ONLY USE THIS ON BC250s THAT HAVE BEEN VERIFIED TO HAVE ALL 8 CPU CORES FUNCTIONAL VIA ANOTHER METHOD FIRST
 
 Credit to https://github.com/rw-r-r-0644 for creating an implementation of this unlock, which I used as a reference when making this driver
