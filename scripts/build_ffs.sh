@@ -137,6 +137,8 @@ build_with_host_edk2() {
   export WORKSPACE="$EDK2_DIR"
   export PACKAGES_PATH="$REPO_DIR:$EDK2_DIR${PACKAGES_PATH:+:$PACKAGES_PATH}"
   export PYTHON_COMMAND="${PYTHON_COMMAND:-python3}"
+  export EDK_TOOLS_PATH="$EDK2_DIR/BaseTools"
+
 
   source_edksetup "$EDK2_DIR/edksetup.sh"
 
@@ -147,6 +149,19 @@ build_with_host_edk2() {
     echo "error: BaseTools GenSec/GenFfs binaries are missing. Build BaseTools first." >&2
     exit 1
   fi
+
+  export PATH="$EDK2_DIR/BaseTools/BinWrappers/PosixLike:$EDK2_DIR/BaseTools/Bin/Linux-x86_64:$PATH"
+
+  if ! command -v build >/dev/null 2>&1; then
+    echo "error: edksetup.sh completed but 'build' is not on PATH" >&2
+    echo "PATH=$PATH" >&2
+    exit 1
+  fi
+
+  mkdir -p "$EDK2_DIR/Conf"
+  cp -f "$EDK2_DIR/BaseTools/Conf/build_rule.template" "$EDK2_DIR/Conf/build_rule.txt"
+  cp -f "$EDK2_DIR/BaseTools/Conf/tools_def.template" "$EDK2_DIR/Conf/tools_def.txt"
+  cp -f "$EDK2_DIR/BaseTools/Conf/target.template" "$EDK2_DIR/Conf/target.txt"
 
   build \
     -a "$ARCH" \
